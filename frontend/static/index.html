@@ -1,0 +1,933 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>MiniLang Compiler</title>
+    <link
+      href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;600;700&family=Syne:wght@400;700;800&display=swap"
+      rel="stylesheet"
+    />
+    <style>
+      :root {
+        --bg: #0d0f14;
+        --surface: #141720;
+        --surface2: #1c2030;
+        --border: #252b3b;
+        --accent: #7c6af7;
+        --accent2: #4dffa6;
+        --accent3: #ff6b6b;
+        --text: #d4d8e8;
+        --muted: #555f7a;
+        --kw: #c792ea;
+        --num: #f78c6c;
+        --str: #c3e88d;
+        --id: #82aaff;
+        --op: #89ddff;
+        --mono: "JetBrains Mono", monospace;
+        --sans: "Syne", sans-serif;
+      }
+
+      * {
+        box-sizing: border-box;
+        margin: 0;
+        padding: 0;
+      }
+
+      body {
+        background: var(--bg);
+        color: var(--text);
+        font-family: var(--mono);
+        height: 100vh;
+        display: grid;
+        grid-template-rows: auto 1fr;
+        overflow: hidden;
+      }
+
+      /* ── Header ── */
+      header {
+        padding: 0 24px;
+        height: 52px;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        border-bottom: 1px solid var(--border);
+        background: var(--surface);
+      }
+
+      .logo {
+        font-family: var(--sans);
+        font-size: 18px;
+        font-weight: 800;
+        letter-spacing: -0.5px;
+        background: linear-gradient(90deg, var(--accent), var(--accent2));
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+      }
+
+      .logo span {
+        font-weight: 400;
+        opacity: 0.6;
+      }
+
+      .header-right {
+        display: flex;
+        align-items: center;
+        gap: 8px;
+      }
+
+      .badge {
+        font-size: 11px;
+        padding: 2px 8px;
+        border-radius: 999px;
+        border: 1px solid var(--border);
+        color: var(--muted);
+      }
+
+      /* ── Main layout ── */
+      main {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        overflow: hidden;
+      }
+
+      /* ── Editor pane ── */
+      .editor-pane {
+        display: flex;
+        flex-direction: column;
+        border-right: 1px solid var(--border);
+        overflow: hidden;
+      }
+
+      .pane-header {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        padding: 0 16px;
+        height: 38px;
+        border-bottom: 1px solid var(--border);
+        background: var(--surface);
+        font-size: 11px;
+        color: var(--muted);
+        text-transform: uppercase;
+        letter-spacing: 0.08em;
+      }
+
+      .pane-header-actions {
+        display: flex;
+        gap: 8px;
+      }
+
+      .sample-select {
+        height: 28px;
+        background: var(--surface2);
+        color: var(--text);
+        border: 1px solid var(--border);
+        border-radius: 6px;
+        padding: 0 8px;
+        font-family: var(--mono);
+        font-size: 11px;
+        max-width: 220px;
+      }
+
+      .sample-select:focus {
+        outline: none;
+        border-color: var(--accent);
+      }
+
+      button {
+        font-family: var(--mono);
+        font-size: 12px;
+        border: none;
+        border-radius: 6px;
+        cursor: pointer;
+        padding: 6px 14px;
+        transition:
+          opacity 0.15s,
+          transform 0.1s;
+      }
+      button:active {
+        transform: scale(0.97);
+      }
+
+      #btn-run {
+        background: var(--accent);
+        color: #fff;
+        font-weight: 600;
+      }
+      #btn-run:hover {
+        opacity: 0.85;
+      }
+
+      #btn-clear {
+        background: var(--surface2);
+        color: var(--muted);
+        border: 1px solid var(--border);
+      }
+      #btn-clear:hover {
+        color: var(--text);
+        border-color: var(--muted);
+      }
+
+      .editor-wrap {
+        flex: 1;
+        display: flex;
+        overflow: hidden;
+        position: relative;
+      }
+
+      .line-numbers {
+        padding: 16px 0 16px 12px;
+        min-width: 42px;
+        text-align: right;
+        white-space: pre;
+        color: var(--muted);
+        font-size: 13px;
+        line-height: 1.75;
+        user-select: none;
+        overflow: hidden;
+        background: var(--bg);
+        border-right: 1px solid var(--border);
+      }
+
+      #editor {
+        flex: 1;
+        resize: none;
+        border: none;
+        outline: none;
+        background: var(--bg);
+        color: var(--text);
+        font-family: var(--mono);
+        font-size: 13px;
+        line-height: 1.75;
+        padding: 16px;
+        tab-size: 2;
+        overflow-y: auto;
+        caret-color: var(--accent2);
+      }
+
+      .status-bar {
+        height: 24px;
+        padding: 0 16px;
+        background: var(--surface);
+        border-top: 1px solid var(--border);
+        display: flex;
+        align-items: center;
+        gap: 20px;
+        font-size: 11px;
+        color: var(--muted);
+      }
+
+      .status-dot {
+        display: inline-block;
+        width: 7px;
+        height: 7px;
+        border-radius: 50%;
+        background: var(--muted);
+        margin-right: 5px;
+      }
+      .status-dot.ok {
+        background: var(--accent2);
+        box-shadow: 0 0 6px var(--accent2);
+      }
+      .status-dot.err {
+        background: var(--accent3);
+        box-shadow: 0 0 6px var(--accent3);
+      }
+
+      /* ── Output pane ── */
+      .output-pane {
+        display: flex;
+        flex-direction: column;
+        overflow: hidden;
+        background: var(--bg);
+      }
+
+      .tabs {
+        display: flex;
+        border-bottom: 1px solid var(--border);
+        background: var(--surface);
+        padding: 0 8px;
+      }
+
+      .tab {
+        padding: 0 16px;
+        height: 38px;
+        font-size: 12px;
+        font-family: var(--mono);
+        color: var(--muted);
+        background: none;
+        border: none;
+        border-bottom: 2px solid transparent;
+        cursor: pointer;
+        transition:
+          color 0.15s,
+          border-color 0.15s;
+        display: flex;
+        align-items: center;
+        gap: 6px;
+      }
+      .tab:hover {
+        color: var(--text);
+      }
+      .tab.active {
+        color: var(--text);
+        border-bottom-color: var(--accent);
+      }
+
+      .tab-badge {
+        background: var(--border);
+        border-radius: 999px;
+        padding: 1px 6px;
+        font-size: 10px;
+      }
+      .tab-badge.has-err {
+        background: rgba(255, 107, 107, 0.2);
+        color: var(--accent3);
+      }
+
+      .panel {
+        display: none;
+        flex: 1;
+        overflow-y: auto;
+        padding: 16px;
+      }
+      .panel.active {
+        display: block;
+      }
+
+      /* ── Tokens table ── */
+      .token-grid {
+        display: grid;
+        grid-template-columns: 40px 80px 1fr;
+        gap: 1px;
+        font-size: 12px;
+      }
+
+      .token-header {
+        display: contents;
+      }
+      .token-header > span {
+        padding: 4px 8px;
+        background: var(--surface2);
+        color: var(--muted);
+        font-size: 11px;
+        text-transform: uppercase;
+        letter-spacing: 0.07em;
+      }
+
+      .token-row {
+        display: contents;
+      }
+      .token-row > span {
+        padding: 5px 8px;
+        background: var(--surface);
+        border-top: 1px solid var(--border);
+      }
+      .token-row:hover > span {
+        background: var(--surface2);
+      }
+
+      .t-KW {
+        color: var(--kw);
+      }
+      .t-ID {
+        color: var(--id);
+      }
+      .t-NUM {
+        color: var(--num);
+      }
+      .t-STR {
+        color: var(--str);
+      }
+      .t-OP {
+        color: var(--op);
+      }
+      .t-PUNCT {
+        color: var(--muted);
+      }
+
+      /* ── AST panel ── */
+      #ast-content {
+        font-size: 12px;
+        line-height: 1.9;
+        white-space: pre-wrap;
+        color: var(--text);
+      }
+
+      /* ── Symbols panel ── */
+      .sym-table {
+        width: 100%;
+        border-collapse: collapse;
+        font-size: 12px;
+      }
+      .sym-table th {
+        text-align: left;
+        padding: 6px 12px;
+        background: var(--surface2);
+        color: var(--muted);
+        font-size: 11px;
+        text-transform: uppercase;
+        letter-spacing: 0.07em;
+        font-weight: 400;
+      }
+      .sym-table td {
+        padding: 7px 12px;
+        border-top: 1px solid var(--border);
+      }
+      .sym-table tr:hover td {
+        background: var(--surface);
+      }
+      .type-int {
+        color: var(--accent);
+      }
+      .type-string {
+        color: var(--str);
+      }
+
+      /* ── Errors panel ── */
+      .error-list {
+        display: flex;
+        flex-direction: column;
+        gap: 8px;
+      }
+      .error-card {
+        background: rgba(255, 107, 107, 0.06);
+        border: 1px solid rgba(255, 107, 107, 0.25);
+        border-left: 3px solid var(--accent3);
+        border-radius: 6px;
+        padding: 10px 14px;
+        font-size: 12px;
+      }
+      .error-card .phase {
+        font-size: 10px;
+        text-transform: uppercase;
+        color: var(--accent3);
+        letter-spacing: 0.08em;
+        margin-bottom: 4px;
+      }
+      .error-card .msg {
+        color: var(--text);
+      }
+      .error-card .lineno {
+        color: var(--muted);
+        margin-top: 4px;
+        font-size: 11px;
+      }
+
+      /* ── Empty / loading states ── */
+      .empty-state {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        height: 100%;
+        gap: 8px;
+        color: var(--muted);
+        font-size: 13px;
+      }
+      .empty-state .icon {
+        font-size: 28px;
+        opacity: 0.5;
+      }
+
+      .spinner {
+        width: 20px;
+        height: 20px;
+        border: 2px solid var(--border);
+        border-top-color: var(--accent);
+        border-radius: 50%;
+        animation: spin 0.6s linear infinite;
+        display: none;
+      }
+      @keyframes spin {
+        to {
+          transform: rotate(360deg);
+        }
+      }
+
+      /* ── Scrollbar ── */
+      ::-webkit-scrollbar {
+        width: 6px;
+        height: 6px;
+      }
+      ::-webkit-scrollbar-track {
+        background: transparent;
+      }
+      ::-webkit-scrollbar-thumb {
+        background: var(--border);
+        border-radius: 3px;
+      }
+    </style>
+  </head>
+  <body>
+    <header>
+      <div class="logo">MiniLang <span>Compiler</span></div>
+      <div class="header-right">
+        <span class="badge">Lexer · Parser · Semantic</span>
+        <div class="spinner" id="spinner"></div>
+      </div>
+    </header>
+
+    <main>
+      <!-- ── Editor pane ── -->
+      <section class="editor-pane">
+        <div class="pane-header">
+          <span>source.ml</span>
+          <div class="pane-header-actions">
+            <select
+              id="sample-program"
+              class="sample-select"
+              aria-label="Load sample program"
+            >
+              <option value="">Samples</option>
+              <option value="basic">Basic arithmetic + loops</option>
+              <option value="strings">String concatenation</option>
+              <option value="nested">Nested blocks</option>
+              <option value="type_error">Type mismatch error</option>
+              <option value="undeclared">Undeclared variable error</option>
+              <option value="syntax_error">Syntax error</option>
+              <option value="runtime_error">Runtime error</option>
+              <option value="line_stress">Line-number stress test</option>
+            </select>
+            <button id="btn-clear">Clear</button>
+            <button id="btn-run">▶ Run</button>
+          </div>
+        </div>
+
+        <div class="editor-wrap">
+          <div class="line-numbers" id="line-numbers">1</div>
+          <textarea
+            id="editor"
+            spellcheck="false"
+            autocomplete="off"
+            autocorrect="off"
+            placeholder="// Type MiniLang code here&#10;int x;&#10;x = 5 + 2;"
+          ></textarea>
+        </div>
+
+        <div class="status-bar">
+          <span
+            ><span class="status-dot" id="status-dot"></span
+            ><span id="status-text">ready</span></span
+          >
+          <span id="line-col">Ln 1, Col 1</span>
+        </div>
+      </section>
+
+      <!-- ── Output pane ── -->
+      <section class="output-pane">
+        <div class="tabs">
+          <button class="tab active" data-panel="tokens">
+            Tokens <span class="tab-badge" id="badge-tokens">0</span>
+          </button>
+          <button class="tab" data-panel="ast">AST</button>
+          <button class="tab" data-panel="symbols">
+            Symbols <span class="tab-badge" id="badge-symbols">0</span>
+          </button>
+          <button class="tab" data-panel="result">
+            Result <span class="tab-badge" id="badge-result">0</span>
+          </button>
+          <button class="tab" data-panel="errors">
+            Errors <span class="tab-badge" id="badge-errors">0</span>
+          </button>
+        </div>
+
+        <div class="panel active" id="panel-tokens">
+          <div class="empty-state">
+            <span class="icon">◈</span>Run code to see tokens
+          </div>
+        </div>
+
+        <div class="panel" id="panel-ast">
+          <div class="empty-state">
+            <span class="icon">◈</span>Run code to see the AST
+          </div>
+        </div>
+
+        <div class="panel" id="panel-symbols">
+          <div class="empty-state">
+            <span class="icon">◈</span>Run code to see symbol table
+          </div>
+        </div>
+
+        <div class="panel" id="panel-result">
+          <div class="empty-state">
+            <span class="icon">◈</span>Run code to see execution result
+          </div>
+        </div>
+
+        <div class="panel" id="panel-errors">
+          <div class="empty-state">
+            <span class="icon">◈</span>No errors yet
+          </div>
+        </div>
+      </section>
+    </main>
+
+    <script>
+      const editor = document.getElementById("editor");
+      const lineNumbers = document.getElementById("line-numbers");
+      const statusDot = document.getElementById("status-dot");
+      const statusText = document.getElementById("status-text");
+      const lineCol = document.getElementById("line-col");
+      const spinner = document.getElementById("spinner");
+      const sampleProgram = document.getElementById("sample-program");
+
+      const SAMPLE_PROGRAMS = {
+        basic: `int x;
+int y;
+int result;
+string msg;
+
+x = 10;
+y = 3;
+result = x + y * 2;
+
+if result > 15 then {
+  result = result - 5;
+} else {
+  result = result + 1;
+}
+
+while result > 0 do {
+  result = result - 1;
+}
+
+msg = "done";`,
+        strings: `string first;
+string last;
+string full;
+
+first = "Ada";
+last = "Lovelace";
+full = first + " " + last;`,
+        nested: `int a;
+int b;
+int c;
+
+a = 2;
+b = 5;
+c = 0;
+
+if b > a then {
+  c = b - a;
+  while c > 1 do {
+    c = c - 1;
+  }
+} else {
+  c = a - b;
+}`,
+        type_error: `int x;
+x = "hello";`,
+        undeclared: `int x;
+y = x + 1;`,
+        syntax_error: `int x
+x = 5;`,
+        runtime_error: `int x;
+x = 10 / 0;`,
+        line_stress: `int i;
+int sum;
+i = 1;
+sum = 0;
+
+while i <= 20 do {
+  sum = sum + i;
+  i = i + 1;
+}`,
+      };
+
+      // ── Line numbers + cursor position ────────────────────────────────────────────
+      function updateLineNumbers() {
+        const lines = editor.value.split("\n").length;
+        lineNumbers.textContent = Array.from(
+          { length: lines },
+          (_, i) => i + 1,
+        ).join("\n");
+      }
+
+      editor.addEventListener("input", updateLineNumbers);
+      editor.addEventListener("keydown", (e) => {
+        if (e.key === "Tab") {
+          e.preventDefault();
+          const s = editor.selectionStart;
+          editor.value =
+            editor.value.slice(0, s) +
+            "  " +
+            editor.value.slice(editor.selectionEnd);
+          editor.selectionStart = editor.selectionEnd = s + 2;
+          updateLineNumbers();
+        }
+      });
+
+      editor.addEventListener("keyup", updateCursor);
+      editor.addEventListener("click", updateCursor);
+      function updateCursor() {
+        const text = editor.value.slice(0, editor.selectionStart);
+        const lines = text.split("\n");
+        lineCol.textContent = `Ln ${lines.length}, Col ${lines[lines.length - 1].length + 1}`;
+      }
+
+      // Sync scroll of line numbers with editor
+      editor.addEventListener("scroll", () => {
+        lineNumbers.scrollTop = editor.scrollTop;
+      });
+
+      updateLineNumbers();
+
+      // ── Tab switching ─────────────────────────────────────────────────────────────
+      document.querySelectorAll(".tab").forEach((tab) => {
+        tab.addEventListener("click", () => {
+          document
+            .querySelectorAll(".tab")
+            .forEach((t) => t.classList.remove("active"));
+          document
+            .querySelectorAll(".panel")
+            .forEach((p) => p.classList.remove("active"));
+          tab.classList.add("active");
+          document
+            .getElementById("panel-" + tab.dataset.panel)
+            .classList.add("active");
+        });
+      });
+
+      // ── Render helpers ────────────────────────────────────────────────────────────
+      function renderTokens(tokens) {
+        if (!tokens.length) {
+          return `<div class="empty-state"><span class="icon">◈</span>No tokens produced</div>`;
+        }
+        let html = `<div class="token-grid">
+    <div class="token-header">
+      <span>Line</span><span>Type</span><span>Value</span>
+    </div>`;
+        tokens.forEach((t) => {
+          const cls = "t-" + t.type;
+          const val = t.type === "STR" ? `"${t.value}"` : String(t.value);
+          html += `<div class="token-row">
+      <span style="color:var(--muted)">${t.line}</span>
+      <span class="${cls}">${t.type}</span>
+      <span class="${cls}">${escHtml(val)}</span>
+    </div>`;
+        });
+        return html + "</div>";
+      }
+
+      function renderAst(ast) {
+        if (!ast)
+          return `<div class="empty-state"><span class="icon">◈</span>No AST available</div>`;
+        // Pretty-indent the repr string
+        let depth = 0,
+          out = "",
+          i = 0;
+        const indent = () => "\n" + "  ".repeat(depth);
+        for (const ch of ast) {
+          if (ch === "(") {
+            out += ch + indent();
+            depth++;
+          } else if (ch === ")") {
+            depth--;
+            out += indent() + ch;
+          } else if (ch === ",") {
+            out += ch + indent();
+          } else {
+            out += ch;
+          }
+        }
+        return `<pre id="ast-content">${escHtml(out.trim())}</pre>`;
+      }
+
+      function renderSymbols(symbols) {
+        if (!symbols.length) {
+          return `<div class="empty-state"><span class="icon">◈</span>No symbols declared</div>`;
+        }
+        let rows = symbols
+          .map(
+            (s) => `<tr>
+    <td>${escHtml(s.name)}</td>
+    <td class="type-${s.type}">${s.type}</td>
+    <td style="color:var(--muted)">${s.line ?? "—"}</td>
+  </tr>`,
+          )
+          .join("");
+        return `<table class="sym-table">
+    <thead><tr><th>Name</th><th>Type</th><th>Line</th></tr></thead>
+    <tbody>${rows}</tbody>
+  </table>`;
+      }
+
+      function renderErrors(errors) {
+        if (!errors.length) {
+          return `<div class="empty-state" style="color:var(--accent2)">
+      <span class="icon">✓</span>No errors — compilation successful!</div>`;
+        }
+        return (
+          '<div class="error-list">' +
+          errors
+            .map(
+              (e) => `
+    <div class="error-card">
+      <div class="phase">${escHtml(e.phase ?? "error")}</div>
+      <div class="msg">${escHtml(e.message)}</div>
+      ${e.line != null ? `<div class="lineno">Line ${e.line}</div>` : ""}
+    </div>`,
+            )
+            .join("") +
+          "</div>"
+        );
+      }
+
+      function renderResult(result) {
+        if (!result.length) {
+          return `<div class="empty-state"><span class="icon">◈</span>No runtime result available</div>`;
+        }
+        let rows = result
+          .map(
+            (r) => `<tr>
+    <td>${escHtml(r.name)}</td>
+    <td class="type-${r.type}">${escHtml(r.type)}</td>
+    <td>${escHtml(String(r.value))}</td>
+    <td style="color:var(--muted)">${r.line ?? "—"}</td>
+  </tr>`,
+          )
+          .join("");
+
+        return `<table class="sym-table">
+    <thead><tr><th>Name</th><th>Type</th><th>Value</th><th>Declared</th></tr></thead>
+    <tbody>${rows}</tbody>
+  </table>`;
+      }
+
+      function escHtml(s) {
+        return String(s)
+          .replace(/&/g, "&amp;")
+          .replace(/</g, "&lt;")
+          .replace(/>/g, "&gt;")
+          .replace(/"/g, "&quot;");
+      }
+
+      // ── Compile ───────────────────────────────────────────────────────────────────
+      document.getElementById("btn-run").addEventListener("click", compile);
+      editor.addEventListener("keydown", (e) => {
+        if ((e.ctrlKey || e.metaKey) && e.key === "Enter") compile();
+      });
+
+      async function compile() {
+        const source = editor.value;
+        spinner.style.display = "block";
+        setStatus("running…", "");
+
+        try {
+          const res = await fetch("/compile", {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify({ source }),
+          });
+          const data = await res.json();
+          applyResult(data);
+        } catch (err) {
+          applyResult({
+            success: false,
+            tokens: [],
+            ast: null,
+            symbols: [],
+            result: [],
+            errors: [{ phase: "network", line: null, message: err.message }],
+          });
+        } finally {
+          spinner.style.display = "none";
+        }
+      }
+
+      function applyResult(data) {
+        document.getElementById("panel-tokens").innerHTML = renderTokens(
+          data.tokens ?? [],
+        );
+        document.getElementById("panel-ast").innerHTML = renderAst(data.ast);
+        document.getElementById("panel-symbols").innerHTML = renderSymbols(
+          data.symbols ?? [],
+        );
+        document.getElementById("panel-result").innerHTML = renderResult(
+          data.result ?? [],
+        );
+        document.getElementById("panel-errors").innerHTML = renderErrors(
+          data.errors ?? [],
+        );
+
+        document.getElementById("badge-tokens").textContent = (
+          data.tokens ?? []
+        ).length;
+        document.getElementById("badge-symbols").textContent = (
+          data.symbols ?? []
+        ).length;
+        document.getElementById("badge-result").textContent = (
+          data.result ?? []
+        ).length;
+
+        const errCount = (data.errors ?? []).length;
+        const errBadge = document.getElementById("badge-errors");
+        errBadge.textContent = errCount;
+        errBadge.className = "tab-badge" + (errCount ? " has-err" : "");
+
+        if (data.success) {
+          setStatus("compiled OK", "ok");
+        } else {
+          setStatus(`${errCount} error${errCount !== 1 ? "s" : ""}`, "err");
+          // Auto-switch to errors tab
+          if (errCount) {
+            document
+              .querySelectorAll(".tab")
+              .forEach((t) => t.classList.remove("active"));
+            document
+              .querySelectorAll(".panel")
+              .forEach((p) => p.classList.remove("active"));
+            document
+              .querySelector('[data-panel="errors"]')
+              .classList.add("active");
+            document.getElementById("panel-errors").classList.add("active");
+          }
+        }
+      }
+
+      function setStatus(text, state) {
+        statusText.textContent = text;
+        statusDot.className = "status-dot" + (state ? " " + state : "");
+      }
+
+      function resetPanels() {
+        ["tokens", "ast", "symbols", "errors"].forEach((p) => {
+          const el = document.getElementById("panel-" + p);
+          const msg = p === "errors" ? "No errors yet" : "Run code to see " + p;
+          el.innerHTML = `<div class="empty-state"><span class="icon">◈</span>${msg}</div>`;
+        });
+        document.getElementById("panel-result").innerHTML =
+          `<div class="empty-state"><span class="icon">◈</span>Run code to see execution result</div>`;
+        document.getElementById("badge-tokens").textContent = 0;
+        document.getElementById("badge-symbols").textContent = 0;
+        document.getElementById("badge-result").textContent = 0;
+        const eb = document.getElementById("badge-errors");
+        eb.textContent = 0;
+        eb.className = "tab-badge";
+      }
+
+      sampleProgram.addEventListener("change", () => {
+        const sample = SAMPLE_PROGRAMS[sampleProgram.value];
+        if (!sample) return;
+        editor.value = sample;
+        updateLineNumbers();
+        updateCursor();
+        setStatus("sample loaded", "");
+        resetPanels();
+      });
+
+      // ── Clear ─────────────────────────────────────────────────────────────────────
+      document.getElementById("btn-clear").addEventListener("click", () => {
+        editor.value = "";
+        updateLineNumbers();
+        updateCursor();
+        setStatus("ready", "");
+        sampleProgram.value = "";
+        resetPanels();
+      });
+    </script>
+  </body>
+</html>
