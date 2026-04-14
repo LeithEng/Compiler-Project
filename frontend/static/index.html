@@ -2,7 +2,10 @@
 <html lang="en">
   <head>
     <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no" />
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1.0, user-scalable=no"
+    />
     <title>MiniLang Studio — Modern Compiler Playground</title>
     <link
       href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,300;14..32,400;14..32,500;14..32,600;14..32,700&family=Fira+Code:wght@400;500;600&display=swap"
@@ -16,12 +19,12 @@
       }
 
       /* Dark theme overrides (toggle by setting `data-theme="dark"` on <html>) */
-      :root[data-theme='dark'] {
+      :root[data-theme="dark"] {
         --bg-deep: #071129;
         --bg-surface: #071526;
         --bg-elevated: #0b2a3b;
-        --border-subtle: rgba(255,255,255,0.06);
-        --border-glow: rgba(99,102,241,0.15);
+        --border-subtle: rgba(255, 255, 255, 0.06);
+        --border-glow: rgba(99, 102, 241, 0.15);
         --accent-primary: #8b8cff;
         --accent-secondary: #34d399;
         --accent-tertiary: #f59e0b;
@@ -33,45 +36,45 @@
         --text-muted: #7f9fb7;
         --gradient-1: linear-gradient(135deg, #6d6cff, #34d399);
         --glow-sm: 0 2px 8px rgba(99, 102, 241, 0.12);
-        --shadow-card: 0 6px 20px rgba(2,6,23,0.6);
+        --shadow-card: 0 6px 20px rgba(2, 6, 23, 0.6);
       }
       :root {
-  /* REFINED BACKGROUNDS */
-  --bg-deep: #f8fafc;
-  --bg-surface: #ffffff;
-  --bg-elevated: #f1f5f9;
+        /* REFINED BACKGROUNDS */
+        --bg-deep: #f8fafc;
+        --bg-surface: #ffffff;
+        --bg-elevated: #f1f5f9;
 
-  /* BORDERS */
-  --border-subtle: #e2e8f0;
-  --border-glow: #cbd5e1;
+        /* BORDERS */
+        --border-subtle: #e2e8f0;
+        --border-glow: #cbd5e1;
 
-  /* ACCENTS - More vibrant and balanced */
-  --accent-primary: #6366f1;
-  --accent-secondary: #10b981;
-  --accent-tertiary: #f59e0b;
+        /* ACCENTS - More vibrant and balanced */
+        --accent-primary: #6366f1;
+        --accent-secondary: #10b981;
+        --accent-tertiary: #f59e0b;
 
-  /* STATES */
-  --success: #22c55e;
-  --error: #ef4444;
-  --warning: #f59e0b;
+        /* STATES */
+        --success: #22c55e;
+        --error: #ef4444;
+        --warning: #f59e0b;
 
-  /* TEXT - Better contrast */
-  --text-primary: #0f172a;
-  --text-secondary: #64748b;
-  --text-muted: #94a3b8;
+        /* TEXT - Better contrast */
+        --text-primary: #0f172a;
+        --text-secondary: #64748b;
+        --text-muted: #94a3b8;
 
-  /* GRADIENT */
-  --gradient-1: linear-gradient(135deg, #6366f1, #10b981);
+        /* GRADIENT */
+        --gradient-1: linear-gradient(135deg, #6366f1, #10b981);
 
-  /* SHADOWS */
-  --glow-sm: 0 2px 8px rgba(99, 102, 241, 0.08);
-  --shadow-card: 0 4px 12px rgba(15, 23, 42, 0.06);
-}
+        /* SHADOWS */
+        --glow-sm: 0 2px 8px rgba(99, 102, 241, 0.08);
+        --shadow-card: 0 4px 12px rgba(15, 23, 42, 0.06);
+      }
 
       body {
         background: var(--bg-deep);
         color: var(--text-primary);
-        font-family: 'Inter', sans-serif;
+        font-family: "Inter", sans-serif;
         height: 100vh;
         overflow: hidden;
         font-weight: 400;
@@ -129,7 +132,11 @@
         letter-spacing: -0.3px;
       }
       .badge-header {
-        background: linear-gradient(135deg, rgba(99, 102, 241, 0.1), rgba(16, 185, 129, 0.1));
+        background: linear-gradient(
+          135deg,
+          rgba(99, 102, 241, 0.1),
+          rgba(16, 185, 129, 0.1)
+        );
         border-radius: 40px;
         padding: 4px 12px;
         font-size: 0.7rem;
@@ -152,7 +159,7 @@
         cursor: pointer;
         font-weight: 500;
         transition: all 0.2s ease;
-        font-family: 'Inter', sans-serif;
+        font-family: "Inter", sans-serif;
       }
       .tool-btn:hover {
         background: var(--bg-elevated);
@@ -211,7 +218,7 @@
         background: var(--bg-surface);
         padding: 16px 0 16px 16px;
         text-align: right;
-        font-family: 'Fira Code', monospace;
+        font-family: "Fira Code", monospace;
         font-size: 13px;
         line-height: 1.7;
         color: var(--text-muted);
@@ -225,7 +232,7 @@
         background: var(--bg-surface);
         border: none;
         color: var(--text-primary);
-        font-family: 'Fira Code', monospace;
+        font-family: "Fira Code", monospace;
         font-size: 13px;
         line-height: 1.7;
         padding: 16px;
@@ -262,7 +269,7 @@
         background: transparent;
         border: none;
         padding: 12px 16px;
-        font-family: 'Inter', sans-serif;
+        font-family: "Inter", sans-serif;
         font-size: 0.75rem;
         font-weight: 500;
         color: var(--text-secondary);
@@ -320,7 +327,7 @@
         background: var(--bg-elevated);
         border-radius: 12px;
         padding: 8px 16px;
-        font-family: 'Fira Code', monospace;
+        font-family: "Fira Code", monospace;
         font-size: 0.75rem;
         border: 1px solid var(--border-subtle);
         transition: all 0.1s;
@@ -345,7 +352,7 @@
         background: var(--bg-elevated);
         padding: 16px;
         border-radius: 18px;
-        font-family: 'Fira Code', monospace;
+        font-family: "Fira Code", monospace;
         font-size: 0.75rem;
         border: 1px solid var(--border-subtle);
         white-space: pre-wrap;
@@ -395,19 +402,25 @@
           <span class="badge-header">compiler · IR · semantic</span>
         </div>
         <div class="toolbar">
-          <select id="sample-select" class="tool-btn" style="background: var(--bg-elevated); cursor: pointer;">
-            <option value="">📁 Load sample</option>
-            <option value="basic">🔢 Arithmetic + loop</option>
-            <option value="strings">📝 String concat</option>
-            <option value="nested">📦 Nested blocks</option>
-            <option value="type_error">⚠️ Type mismatch</option>
-            <option value="undeclared">❓ Undeclared variable</option>
-            <option value="syntax_error">🔀 Syntax error</option>
-            <option value="runtime_error">💥 Runtime error</option>
+          <select
+            id="sample-select"
+            class="tool-btn"
+            style="background: var(--bg-elevated); cursor: pointer"
+          >
+            <option value="">Load sample</option>
+            <option value="basic">Arithmetic + loop</option>
+            <option value="strings">String concat</option>
+            <option value="nested">Nested blocks</option>
+            <option value="type_error">Type mismatch</option>
+            <option value="undeclared">Undeclared variable</option>
+            <option value="syntax_error">Syntax error</option>
+            <option value="runtime_error">Runtime error</option>
           </select>
           <button id="clearBtn" class="tool-btn">Clear</button>
-          <button id="runBtn" class="tool-btn run-btn">▶ Run & compile</button>
-          <button id="themeToggle" class="tool-btn" aria-label="Toggle theme">🌙</button>
+          <button id="runBtn" class="tool-btn run-btn">Run & compile</button>
+          <button id="themeToggle" class="tool-btn" aria-label="Toggle theme">
+            Dark
+          </button>
         </div>
       </div>
 
@@ -415,12 +428,16 @@
         <!-- left: editor -->
         <div class="editor-panel">
           <div class="panel-head">
-            <span>📄 source.ml</span>
+            <span>source.ml</span>
             <span>⌘ + Enter</span>
           </div>
           <div class="code-container">
             <div class="line-numbers" id="lineNumbers"></div>
-            <textarea id="codeEditor" spellcheck="false" placeholder="// MiniLang syntax&#10;int counter;&#10;string message;&#10;counter = 42;&#10;message = &quot;hello world&quot;;"></textarea>
+            <textarea
+              id="codeEditor"
+              spellcheck="false"
+              placeholder='// MiniLang syntax&#10;int counter;&#10;string message;&#10;counter = 42;&#10;message = "hello world";'
+            ></textarea>
           </div>
           <div class="status-footer">
             <div id="statusMsg">● ready</div>
@@ -431,19 +448,31 @@
         <!-- right: output -->
         <div class="output-panel">
           <div class="tabs-modern">
-            <button class="tab-item active" data-tab="tokens">🔍 Tokens <span id="tokenCount" class="badge-count">0</span></button>
-            <button class="tab-item" data-tab="ast">🌳 AST</button>
-            <button class="tab-item" data-tab="symbols">📚 Symbols <span id="symCount" class="badge-count">0</span></button>
-            <button class="tab-item" data-tab="result">⚡ Runtime <span id="resultCount" class="badge-count">0</span></button>
-            <button class="tab-item" data-tab="errors">⚠️ Errors <span id="errCount" class="badge-count">0</span></button>
+            <button class="tab-item active" data-tab="tokens">
+              Tokens <span id="tokenCount" class="badge-count">0</span>
+            </button>
+            <button class="tab-item" data-tab="ast">AST</button>
+            <button class="tab-item" data-tab="symbols">
+              Symbols <span id="symCount" class="badge-count">0</span>
+            </button>
+            <button class="tab-item" data-tab="result">
+              Runtime <span id="resultCount" class="badge-count">0</span>
+            </button>
+            <button class="tab-item" data-tab="errors">
+              Errors <span id="errCount" class="badge-count">0</span>
+            </button>
           </div>
           <div id="panel-tokens" class="panel-view active">
-            <div class="empty-state">✨ Run your code to see lexical tokens</div>
+            <div class="empty-state">Run your code to see lexical tokens</div>
           </div>
-          <div id="panel-ast" class="panel-view" style="display: none;"></div>
-          <div id="panel-symbols" class="panel-view" style="display: none;"></div>
-          <div id="panel-result" class="panel-view" style="display: none;"></div>
-          <div id="panel-errors" class="panel-view" style="display: none;"></div>
+          <div id="panel-ast" class="panel-view" style="display: none"></div>
+          <div
+            id="panel-symbols"
+            class="panel-view"
+            style="display: none"
+          ></div>
+          <div id="panel-result" class="panel-view" style="display: none"></div>
+          <div id="panel-errors" class="panel-view" style="display: none"></div>
         </div>
       </div>
     </div>
@@ -467,35 +496,66 @@
 
         // ---------------- LEXER ----------------
         tokenize() {
-          const keywords = new Set(['int', 'string', 'if', 'then', 'else', 'while', 'do']);
+          const keywords = new Set([
+            "int",
+            "string",
+            "if",
+            "then",
+            "else",
+            "while",
+            "do",
+          ]);
           const tokens = [];
           while (this.pos < this.source.length) {
             let ch = this.source[this.pos];
-            if (ch === ' ' || ch === '\t' || ch === '\r') { this.pos++; continue; }
-            if (ch === '\n') { this.line++; this.pos++; continue; }
+            if (ch === " " || ch === "\t" || ch === "\r") {
+              this.pos++;
+              continue;
+            }
+            if (ch === "\n") {
+              this.line++;
+              this.pos++;
+              continue;
+            }
 
             // comments
-            if (ch === '/' && this.source[this.pos+1] === '/') {
-              while(this.pos < this.source.length && this.source[this.pos] !== '\n') this.pos++;
+            if (ch === "/" && this.source[this.pos + 1] === "/") {
+              while (
+                this.pos < this.source.length &&
+                this.source[this.pos] !== "\n"
+              )
+                this.pos++;
               continue;
             }
 
             // numbers
             if (/[0-9]/.test(ch)) {
               let start = this.pos;
-              while (this.pos < this.source.length && /[0-9]/.test(this.source[this.pos])) this.pos++;
+              while (
+                this.pos < this.source.length &&
+                /[0-9]/.test(this.source[this.pos])
+              )
+                this.pos++;
               const value = parseInt(this.source.slice(start, this.pos), 10);
-              tokens.push({ type: 'NUM', value, line: this.line, raw: value });
+              tokens.push({ type: "NUM", value, line: this.line, raw: value });
               continue;
             }
 
             // identifiers & keywords
             if (/[a-zA-Z_]/.test(ch)) {
               let start = this.pos;
-              while (this.pos < this.source.length && /[a-zA-Z0-9_]/.test(this.source[this.pos])) this.pos++;
+              while (
+                this.pos < this.source.length &&
+                /[a-zA-Z0-9_]/.test(this.source[this.pos])
+              )
+                this.pos++;
               const text = this.source.slice(start, this.pos);
-              const type = keywords.has(text) ? text.toUpperCase() : 'ID';
-              tokens.push({ type: type === 'ID' ? 'ID' : type, value: text, line: this.line });
+              const type = keywords.has(text) ? text.toUpperCase() : "ID";
+              tokens.push({
+                type: type === "ID" ? "ID" : type,
+                value: text,
+                line: this.line,
+              });
               continue;
             }
 
@@ -503,40 +563,52 @@
             if (ch === '"') {
               this.pos++;
               let start = this.pos;
-              while (this.pos < this.source.length && this.source[this.pos] !== '"') this.pos++;
+              while (
+                this.pos < this.source.length &&
+                this.source[this.pos] !== '"'
+              )
+                this.pos++;
               if (this.pos >= this.source.length) {
-                this.errors.push({ phase: 'Lexer', message: 'Unclosed string literal', line: this.line });
+                this.errors.push({
+                  phase: "Lexer",
+                  message: "Unclosed string literal",
+                  line: this.line,
+                });
                 return tokens;
               }
               const strVal = this.source.slice(start, this.pos);
               this.pos++; // closing "
-              tokens.push({ type: 'STR', value: strVal, line: this.line });
+              tokens.push({ type: "STR", value: strVal, line: this.line });
               continue;
             }
 
             // operators & punctuation
             let op = null;
-            if (ch === '=') op = 'ASSIGN';
-            else if (ch === '+') op = 'PLUS';
-            else if (ch === '-') op = 'MINUS';
-            else if (ch === '*') op = 'STAR';
-            else if (ch === '/') op = 'SLASH';
-            else if (ch === '>') op = 'GT';
-            else if (ch === '<') op = 'LT';
-            else if (ch === ';') op = 'SEMI';
-            else if (ch === '(') op = 'LPAREN';
-            else if (ch === ')') op = 'RPAREN';
-            else if (ch === '{') op = 'LBRACE';
-            else if (ch === '}') op = 'RBRACE';
+            if (ch === "=") op = "ASSIGN";
+            else if (ch === "+") op = "PLUS";
+            else if (ch === "-") op = "MINUS";
+            else if (ch === "*") op = "STAR";
+            else if (ch === "/") op = "SLASH";
+            else if (ch === ">") op = "GT";
+            else if (ch === "<") op = "LT";
+            else if (ch === ";") op = "SEMI";
+            else if (ch === "(") op = "LPAREN";
+            else if (ch === ")") op = "RPAREN";
+            else if (ch === "{") op = "LBRACE";
+            else if (ch === "}") op = "RBRACE";
             else {
-              this.errors.push({ phase: 'Lexer', message: `Unexpected character '${ch}'`, line: this.line });
+              this.errors.push({
+                phase: "Lexer",
+                message: `Unexpected character '${ch}'`,
+                line: this.line,
+              });
               this.pos++;
               continue;
             }
             tokens.push({ type: op, value: ch, line: this.line });
             this.pos++;
           }
-          tokens.push({ type: 'EOF', value: 'EOF', line: this.line });
+          tokens.push({ type: "EOF", value: "EOF", line: this.line });
           this.tokens = tokens;
           return tokens;
         }
@@ -551,35 +623,44 @@
               idx++;
               return tok;
             }
-            this.errors.push({ phase: 'Parser', message: errMsg || `Expected ${expectedType} but got ${current().type}`, line: current().line });
+            this.errors.push({
+              phase: "Parser",
+              message:
+                errMsg || `Expected ${expectedType} but got ${current().type}`,
+              line: current().line,
+            });
             return null;
           };
 
           const parseProgram = () => {
             const statements = [];
-            while (current().type !== 'EOF') {
+            while (current().type !== "EOF") {
               const stmt = parseStatement();
               if (stmt) statements.push(stmt);
               else break;
             }
-            return { type: 'Program', statements };
+            return { type: "Program", statements };
           };
 
           const parseStatement = () => {
             const tok = current();
-            if (tok.type === 'INT' || tok.type === 'STRING') {
+            if (tok.type === "INT" || tok.type === "STRING") {
               return parseDeclaration();
-            } else if (tok.type === 'ID') {
+            } else if (tok.type === "ID") {
               return parseAssignment();
-            } else if (tok.type === 'IF') {
+            } else if (tok.type === "IF") {
               return parseIf();
-            } else if (tok.type === 'WHILE') {
+            } else if (tok.type === "WHILE") {
               return parseWhile();
-            } else if (tok.type === 'RBRACE') {
-              consume('RBRACE', 'unexpected }');
+            } else if (tok.type === "RBRACE") {
+              consume("RBRACE", "unexpected }");
               return null;
             } else {
-              this.errors.push({ phase: 'Parser', message: `Unexpected token ${tok.type}`, line: tok.line });
+              this.errors.push({
+                phase: "Parser",
+                message: `Unexpected token ${tok.type}`,
+                line: tok.line,
+              });
               idx++;
               return null;
             }
@@ -587,105 +668,124 @@
 
           const parseDeclaration = () => {
             const typeTok = current();
-            const varType = typeTok.type === 'INT' ? 'int' : 'string';
+            const varType = typeTok.type === "INT" ? "int" : "string";
             consume(varType.toUpperCase(), `Expected type ${varType}`);
-            const idTok = consume('ID', 'Expected identifier after type');
+            const idTok = consume("ID", "Expected identifier after type");
             if (!idTok) return null;
             const name = idTok.value;
-            consume('SEMI', 'Expected ; after declaration');
+            consume("SEMI", "Expected ; after declaration");
             // add to symbol table
             if (!this.symbolTable.has(name)) {
               this.symbolTable.set(name, { type: varType, line: idTok.line });
-              this.runtimeValues.set(name, varType === 'int' ? 0 : "");
+              this.runtimeValues.set(name, varType === "int" ? 0 : "");
             } else {
-              this.errors.push({ phase: 'Semantic', message: `Variable '${name}' already declared`, line: idTok.line });
+              this.errors.push({
+                phase: "Semantic",
+                message: `Variable '${name}' already declared`,
+                line: idTok.line,
+              });
             }
-            return { type: 'Decl', varType, name, line: idTok.line };
+            return { type: "Decl", varType, name, line: idTok.line };
           };
 
           const parseAssignment = () => {
-            const idTok = consume('ID', 'Expected identifier');
+            const idTok = consume("ID", "Expected identifier");
             if (!idTok) return null;
             const name = idTok.value;
-            consume('ASSIGN', 'Expected =');
+            consume("ASSIGN", "Expected =");
             const expr = parseExpression();
-            consume('SEMI', 'Expected ; after assignment');
-            return { type: 'Assign', name, expr, line: idTok.line };
+            consume("SEMI", "Expected ; after assignment");
+            return { type: "Assign", name, expr, line: idTok.line };
           };
 
           const parseExpression = () => {
             let left = parsePrimary();
-            while (current().type === 'PLUS' || current().type === 'MINUS' || current().type === 'STAR' || current().type === 'SLASH' || current().type === 'GT' || current().type === 'LT') {
+            while (
+              current().type === "PLUS" ||
+              current().type === "MINUS" ||
+              current().type === "STAR" ||
+              current().type === "SLASH" ||
+              current().type === "GT" ||
+              current().type === "LT"
+            ) {
               const op = current().type;
               idx++;
               const right = parsePrimary();
-              left = { type: 'Binary', op, left, right };
+              left = { type: "Binary", op, left, right };
             }
             return left;
           };
 
           const parsePrimary = () => {
             const tok = current();
-            if (tok.type === 'NUM') {
+            if (tok.type === "NUM") {
               idx++;
-              return { type: 'Number', value: tok.value, line: tok.line };
-            } else if (tok.type === 'STR') {
+              return { type: "Number", value: tok.value, line: tok.line };
+            } else if (tok.type === "STR") {
               idx++;
-              return { type: 'StringLit', value: tok.value, line: tok.line };
-            } else if (tok.type === 'ID') {
+              return { type: "StringLit", value: tok.value, line: tok.line };
+            } else if (tok.type === "ID") {
               idx++;
-              return { type: 'Variable', name: tok.value, line: tok.line };
-            } else if (tok.type === 'LPAREN') {
+              return { type: "Variable", name: tok.value, line: tok.line };
+            } else if (tok.type === "LPAREN") {
               idx++;
               const expr = parseExpression();
-              consume('RPAREN', 'Expected )');
+              consume("RPAREN", "Expected )");
               return expr;
             }
-            this.errors.push({ phase: 'Parser', message: `Unexpected token in expression: ${tok.type}`, line: tok.line });
-            return { type: 'ErrorExpr' };
+            this.errors.push({
+              phase: "Parser",
+              message: `Unexpected token in expression: ${tok.type}`,
+              line: tok.line,
+            });
+            return { type: "ErrorExpr" };
           };
 
           const parseIf = () => {
-            consume('IF', 'Expected if');
+            consume("IF", "Expected if");
             const cond = parseExpression();
-            consume('THEN', 'Expected then');
-            consume('LBRACE', 'Expected {');
+            consume("THEN", "Expected then");
+            consume("LBRACE", "Expected {");
             const thenBlock = [];
-            while (current().type !== 'RBRACE' && current().type !== 'EOF') {
+            while (current().type !== "RBRACE" && current().type !== "EOF") {
               const st = parseStatement();
               if (st) thenBlock.push(st);
             }
-            consume('RBRACE', 'Expected }');
+            consume("RBRACE", "Expected }");
             let elseBlock = [];
-            if (current().type === 'ELSE') {
+            if (current().type === "ELSE") {
               idx++;
-              consume('LBRACE', 'Expected { after else');
-              while (current().type !== 'RBRACE' && current().type !== 'EOF') {
+              consume("LBRACE", "Expected { after else");
+              while (current().type !== "RBRACE" && current().type !== "EOF") {
                 const st = parseStatement();
                 if (st) elseBlock.push(st);
               }
-              consume('RBRACE', 'Expected }');
+              consume("RBRACE", "Expected }");
             }
-            return { type: 'If', cond, thenBlock, elseBlock };
+            return { type: "If", cond, thenBlock, elseBlock };
           };
 
           const parseWhile = () => {
-            consume('WHILE', 'Expected while');
+            consume("WHILE", "Expected while");
             const cond = parseExpression();
-            consume('DO', 'Expected do');
-            consume('LBRACE', 'Expected {');
+            consume("DO", "Expected do");
+            consume("LBRACE", "Expected {");
             const body = [];
-            while (current().type !== 'RBRACE' && current().type !== 'EOF') {
+            while (current().type !== "RBRACE" && current().type !== "EOF") {
               const st = parseStatement();
               if (st) body.push(st);
             }
-            consume('RBRACE', 'Expected }');
-            return { type: 'While', cond, body };
+            consume("RBRACE", "Expected }");
+            return { type: "While", cond, body };
           };
 
           const program = parseProgram();
-          if (idx < tokens.length && tokens[idx].type !== 'EOF') {
-            this.errors.push({ phase: 'Parser', message: 'Extra tokens after end of program', line: tokens[idx].line });
+          if (idx < tokens.length && tokens[idx].type !== "EOF") {
+            this.errors.push({
+              phase: "Parser",
+              message: "Extra tokens after end of program",
+              line: tokens[idx].line,
+            });
           }
           return program;
         }
@@ -693,51 +793,72 @@
         // ---------------- INTERPRETER ----------------
         evaluate(ast, runtimeVars) {
           const evalExpr = (expr) => {
-            if (expr.type === 'Number') return expr.value;
-            if (expr.type === 'StringLit') return expr.value;
-            if (expr.type === 'Variable') {
+            if (expr.type === "Number") return expr.value;
+            if (expr.type === "StringLit") return expr.value;
+            if (expr.type === "Variable") {
               if (!runtimeVars.has(expr.name)) {
-                this.errors.push({ phase: 'Runtime', message: `Undefined variable '${expr.name}'`, line: expr.line });
+                this.errors.push({
+                  phase: "Runtime",
+                  message: `Undefined variable '${expr.name}'`,
+                  line: expr.line,
+                });
                 return 0;
               }
               return runtimeVars.get(expr.name);
             }
-            if (expr.type === 'Binary') {
+            if (expr.type === "Binary") {
               const left = evalExpr(expr.left);
               const right = evalExpr(expr.right);
-              if (expr.op === 'PLUS') return left + right;
-              if (expr.op === 'MINUS') return left - right;
-              if (expr.op === 'STAR') return left * right;
-              if (expr.op === 'SLASH') {
-                if (right === 0) { this.errors.push({ phase: 'Runtime', message: 'Division by zero', line: expr.line }); return 0; }
+              if (expr.op === "PLUS") return left + right;
+              if (expr.op === "MINUS") return left - right;
+              if (expr.op === "STAR") return left * right;
+              if (expr.op === "SLASH") {
+                if (right === 0) {
+                  this.errors.push({
+                    phase: "Runtime",
+                    message: "Division by zero",
+                    line: expr.line,
+                  });
+                  return 0;
+                }
                 return Math.floor(left / right);
               }
-              if (expr.op === 'GT') return left > right;
-              if (expr.op === 'LT') return left < right;
+              if (expr.op === "GT") return left > right;
+              if (expr.op === "LT") return left < right;
             }
             return 0;
           };
 
           const execStmt = (stmt) => {
-            if (stmt.type === 'Decl') { /* already in symbol table */ }
-            else if (stmt.type === 'Assign') {
+            if (stmt.type === "Decl") {
+              /* already in symbol table */
+            } else if (stmt.type === "Assign") {
               const val = evalExpr(stmt.expr);
               if (this.symbolTable.has(stmt.name)) {
                 const varInfo = this.symbolTable.get(stmt.name);
-                if (varInfo.type === 'int' && typeof val !== 'boolean' && !isNaN(val)) runtimeVars.set(stmt.name, Number(val));
-                else if (varInfo.type === 'string') runtimeVars.set(stmt.name, String(val));
-                else if (typeof val === 'boolean') runtimeVars.set(stmt.name, val ? 1 : 0);
+                if (
+                  varInfo.type === "int" &&
+                  typeof val !== "boolean" &&
+                  !isNaN(val)
+                )
+                  runtimeVars.set(stmt.name, Number(val));
+                else if (varInfo.type === "string")
+                  runtimeVars.set(stmt.name, String(val));
+                else if (typeof val === "boolean")
+                  runtimeVars.set(stmt.name, val ? 1 : 0);
                 else runtimeVars.set(stmt.name, val);
               } else {
-                this.errors.push({ phase: 'Runtime', message: `Undeclared variable '${stmt.name}'`, line: stmt.line });
+                this.errors.push({
+                  phase: "Runtime",
+                  message: `Undeclared variable '${stmt.name}'`,
+                  line: stmt.line,
+                });
               }
-            }
-            else if (stmt.type === 'If') {
+            } else if (stmt.type === "If") {
               const cond = evalExpr(stmt.cond);
               if (cond) stmt.thenBlock.forEach(execStmt);
               else stmt.elseBlock.forEach(execStmt);
-            }
-            else if (stmt.type === 'While') {
+            } else if (stmt.type === "While") {
               while (evalExpr(stmt.cond)) {
                 stmt.body.forEach(execStmt);
                 if (this.errors.length) break;
@@ -745,169 +866,258 @@
             }
           };
           ast.statements.forEach(execStmt);
-          const result = Array.from(runtimeVars.entries()).map(([name, value]) => {
-            const info = this.symbolTable.get(name);
-            return { name, type: info?.type || 'unknown', value, line: info?.line || 0 };
-          });
+          const result = Array.from(runtimeVars.entries()).map(
+            ([name, value]) => {
+              const info = this.symbolTable.get(name);
+              return {
+                name,
+                type: info?.type || "unknown",
+                value,
+                line: info?.line || 0,
+              };
+            },
+          );
           return result;
         }
 
         fullCompile() {
           this.tokenize();
-          if (this.errors.length) return { success: false, tokens: this.tokens, errors: this.errors };
+          if (this.errors.length)
+            return { success: false, tokens: this.tokens, errors: this.errors };
           if (this.tokens.length) {
             const parseResult = this.parse(this.tokens);
             this.ast = parseResult;
-            if (this.errors.length) return { success: false, tokens: this.tokens, ast: null, errors: this.errors, symbols: [] };
+            if (this.errors.length)
+              return {
+                success: false,
+                tokens: this.tokens,
+                ast: null,
+                errors: this.errors,
+                symbols: [],
+              };
             const runtimeRes = this.evaluate(this.ast, this.runtimeValues);
-            const symbolsArr = Array.from(this.symbolTable.entries()).map(([name, info]) => ({ name, type: info.type, line: info.line }));
-            return { success: this.errors.length === 0, tokens: this.tokens, ast: this.ast, symbols: symbolsArr, result: runtimeRes, errors: this.errors };
+            const symbolsArr = Array.from(this.symbolTable.entries()).map(
+              ([name, info]) => ({ name, type: info.type, line: info.line }),
+            );
+            return {
+              success: this.errors.length === 0,
+              tokens: this.tokens,
+              ast: this.ast,
+              symbols: symbolsArr,
+              result: runtimeRes,
+              errors: this.errors,
+            };
           }
-          return { success: false, tokens: [], errors: [{ phase: 'General', message: 'No tokens generated' }] };
+          return {
+            success: false,
+            tokens: [],
+            errors: [{ phase: "General", message: "No tokens generated" }],
+          };
         }
       }
 
       // UI rendering functions
       function renderTokens(tokens) {
-        if (!tokens || tokens.length === 0) return '<div class="empty-state">⚡ No tokens emitted</div>';
-        return `<div class="token-grid-modern">${tokens.map(t => `
+        if (!tokens || tokens.length === 0)
+          return '<div class="empty-state">No tokens emitted</div>';
+        return `<div class="token-grid-modern">${tokens
+          .map(
+            (t) => `
           <div class="token-row">
             <span style="color:#888">${t.line}</span>
             <span class="token-type">${t.type}</span>
-            <span class="token-value">${t.type === 'STR' ? `"${t.value}"` : t.value}</span>
-          </div>`).join('')}</div>`;
+            <span class="token-value">${t.type === "STR" ? `"${t.value}"` : t.value}</span>
+          </div>`,
+          )
+          .join("")}</div>`;
       }
       function renderAst(ast) {
-        if (!ast) return '<div class="empty-state">🌱 AST not available</div>';
+        if (!ast) return '<div class="empty-state">AST not available</div>';
         const pretty = (node, depth = 0) => {
-          if (!node) return '';
-          const indent = '  '.repeat(depth);
-          if (node.type === 'Program') return node.statements.map(s => pretty(s, depth)).join('\n');
-          if (node.type === 'Decl') return `${indent}📦 DECL ${node.varType} ${node.name};`;
-          if (node.type === 'Assign') return `${indent}🖊️ ASSIGN ${node.name} = ${pretty(node.expr, 0)}`;
-          if (node.type === 'Binary') return `(${pretty(node.left,0)} ${node.op} ${pretty(node.right,0)})`;
-          if (node.type === 'Number') return `${node.value}`;
-          if (node.type === 'StringLit') return `"${node.value}"`;
-          if (node.type === 'Variable') return `${node.name}`;
-          if (node.type === 'If') return `${indent}❓ IF (${pretty(node.cond,0)}) THEN ... ELSE ...`;
-          if (node.type === 'While') return `${indent}🔄 WHILE (${pretty(node.cond,0)}) DO ...`;
+          if (!node) return "";
+          const indent = "  ".repeat(depth);
+          if (node.type === "Program")
+            return node.statements.map((s) => pretty(s, depth)).join("\n");
+          if (node.type === "Decl")
+            return `${indent}DECL ${node.varType} ${node.name};`;
+          if (node.type === "Assign")
+            return `${indent}ASSIGN ${node.name} = ${pretty(node.expr, 0)}`;
+          if (node.type === "Binary")
+            return `(${pretty(node.left, 0)} ${node.op} ${pretty(node.right, 0)})`;
+          if (node.type === "Number") return `${node.value}`;
+          if (node.type === "StringLit") return `"${node.value}"`;
+          if (node.type === "Variable") return `${node.name}`;
+          if (node.type === "If")
+            return `${indent}IF (${pretty(node.cond, 0)}) THEN ... ELSE ...`;
+          if (node.type === "While")
+            return `${indent}WHILE (${pretty(node.cond, 0)}) DO ...`;
           return `${indent}${node.type}`;
         };
         return `<pre class="ast-tree">${pretty(ast)}</pre>`;
       }
       function renderSymbols(symbols) {
-        if (!symbols.length) return '<div class="empty-state">🏷️ No symbols declared</div>';
-        return `<table class="data-table"><thead><tr><th>Name</th><th>Type</th><th>Declared line</th></tr></thead><tbody>${symbols.map(s => `<tr><td><strong>${s.name}</strong></td><td style="color:var(--accent-secondary)">${s.type}</td><td>${s.line}</td></tr>`).join('')}</tbody></table>`;
+        if (!symbols.length)
+          return '<div class="empty-state">No symbols declared</div>';
+        return `<table class="data-table"><thead><tr><th>Name</th><th>Type</th><th>Declared line</th></tr></thead><tbody>${symbols.map((s) => `<tr><td><strong>${s.name}</strong></td><td style="color:var(--accent-secondary)">${s.type}</td><td>${s.line}</td></tr>`).join("")}</tbody></table>`;
       }
       function renderResult(result) {
-        if (!result.length) return '<div class="empty-state">🎛️ No runtime values</div>';
-        return `<table class="data-table"><thead><tr><th>Variable</th><th>Type</th><th>Value</th></tr></thead><tbody>${result.map(r => `<tr><td>${r.name}</td><td>${r.type}</td><td>${r.value}</td></tr>`).join('')}</tbody></table>`;
+        if (!result.length)
+          return '<div class="empty-state">No runtime values</div>';
+        return `<table class="data-table"><thead><tr><th>Variable</th><th>Type</th><th>Value</th></tr></thead><tbody>${result.map((r) => `<tr><td>${r.name}</td><td>${r.type}</td><td>${r.value}</td></tr>`).join("")}</tbody></table>`;
       }
       function renderErrors(errors) {
-        if (!errors.length) return '<div class="empty-state">✅ No compilation errors — perfect!</div>';
-        return `<div>${errors.map(e => `<div class="error-modern"><strong>${e.phase || 'Error'}</strong> · line ${e.line || '?'}<br>${e.message}</div>`).join('')}</div>`;
+        if (!errors.length)
+          return '<div class="empty-state">No compilation errors - perfect!</div>';
+        return `<div>${errors.map((e) => `<div class="error-modern"><strong>${e.phase || "Error"}</strong> · line ${e.line || "?"}<br>${e.message}</div>`).join("")}</div>`;
       }
 
       // DOM wiring
-      const editor = document.getElementById('codeEditor');
-      const lineNumbersDiv = document.getElementById('lineNumbers');
-      const runBtn = document.getElementById('runBtn');
-      const clearBtn = document.getElementById('clearBtn');
-      const sampleSelect = document.getElementById('sample-select');
-      const statusMsg = document.getElementById('statusMsg');
-      const cursorPos = document.getElementById('cursorPos');
-      const themeToggle = document.getElementById('themeToggle');
+      const editor = document.getElementById("codeEditor");
+      const lineNumbersDiv = document.getElementById("lineNumbers");
+      const runBtn = document.getElementById("runBtn");
+      const clearBtn = document.getElementById("clearBtn");
+      const sampleSelect = document.getElementById("sample-select");
+      const statusMsg = document.getElementById("statusMsg");
+      const cursorPos = document.getElementById("cursorPos");
+      const themeToggle = document.getElementById("themeToggle");
 
       const samplePrograms = {
-        basic: "int x;\nint y;\nint result;\nx = 10;\ny = 3;\nresult = x + y * 2;\nif result > 15 then {\n  result = result - 5;\n} else {\n  result = result + 1;\n}\nwhile result > 0 do {\n  result = result - 1;\n}",
-        strings: "string first;\nstring last;\nstring full;\nfirst = \"Mini\";\nlast = \"Lang\";\nfull = first + \" \" + last;",
-        nested: "int a;\na = 5;\nif a > 2 then {\n  int b;\n  b = 10;\n  a = b - a;\n}",
-        type_error: "int x;\nx = \"oops\";",
+        basic:
+          "int x;\nint y;\nint result;\nx = 10;\ny = 3;\nresult = x + y * 2;\nif result > 15 then {\n  result = result - 5;\n} else {\n  result = result + 1;\n}\nwhile result > 0 do {\n  result = result - 1;\n}",
+        strings:
+          'string first;\nstring last;\nstring full;\nfirst = "Mini";\nlast = "Lang";\nfull = first + " " + last;',
+        nested:
+          "int a;\na = 5;\nif a > 2 then {\n  int b;\n  b = 10;\n  a = b - a;\n}",
+        type_error: 'int x;\nx = "oops";',
         undeclared: "int x;\ny = x + 1;",
         syntax_error: "int x\nx = 5;",
-        runtime_error: "int x;\nx = 10 / 0;"
+        runtime_error: "int x;\nx = 10 / 0;",
       };
 
       function updateLineNumbers() {
-        const lines = editor.value.split('\n').length;
-        lineNumbersDiv.textContent = Array.from({ length: lines }, (_, i) => i+1).join('\n');
+        const lines = editor.value.split("\n").length;
+        lineNumbersDiv.textContent = Array.from(
+          { length: lines },
+          (_, i) => i + 1,
+        ).join("\n");
       }
       function updateCursor() {
         const text = editor.value.slice(0, editor.selectionStart);
-        const lines = text.split('\n');
-        cursorPos.innerText = `Ln ${lines.length}, Col ${lines[lines.length-1].length+1}`;
+        const lines = text.split("\n");
+        cursorPos.innerText = `Ln ${lines.length}, Col ${lines[lines.length - 1].length + 1}`;
       }
-      editor.addEventListener('input', updateLineNumbers);
-      editor.addEventListener('keyup', updateCursor);
-      editor.addEventListener('click', updateCursor);
-      editor.addEventListener('scroll', () => lineNumbersDiv.scrollTop = editor.scrollTop);
-      editor.addEventListener('keydown', (e) => { if((e.ctrlKey||e.metaKey) && e.key === 'Enter') compile(); });
+      editor.addEventListener("input", updateLineNumbers);
+      editor.addEventListener("keyup", updateCursor);
+      editor.addEventListener("click", updateCursor);
+      editor.addEventListener(
+        "scroll",
+        () => (lineNumbersDiv.scrollTop = editor.scrollTop),
+      );
+      editor.addEventListener("keydown", (e) => {
+        if ((e.ctrlKey || e.metaKey) && e.key === "Enter") compile();
+      });
       updateLineNumbers();
 
       function compile() {
         const source = editor.value;
         const compiler = new MiniLangCompiler(source);
         const result = compiler.fullCompile();
-        document.getElementById('panel-tokens').innerHTML = renderTokens(result.tokens);
-        document.getElementById('panel-ast').innerHTML = renderAst(result.ast);
-        document.getElementById('panel-symbols').innerHTML = renderSymbols(result.symbols || []);
-        document.getElementById('panel-result').innerHTML = renderResult(result.result || []);
-        document.getElementById('panel-errors').innerHTML = renderErrors(result.errors);
-        document.getElementById('tokenCount').innerText = result.tokens?.length || 0;
-        document.getElementById('symCount').innerText = result.symbols?.length || 0;
-        document.getElementById('resultCount').innerText = result.result?.length || 0;
+        document.getElementById("panel-tokens").innerHTML = renderTokens(
+          result.tokens,
+        );
+        document.getElementById("panel-ast").innerHTML = renderAst(result.ast);
+        document.getElementById("panel-symbols").innerHTML = renderSymbols(
+          result.symbols || [],
+        );
+        document.getElementById("panel-result").innerHTML = renderResult(
+          result.result || [],
+        );
+        document.getElementById("panel-errors").innerHTML = renderErrors(
+          result.errors,
+        );
+        document.getElementById("tokenCount").innerText =
+          result.tokens?.length || 0;
+        document.getElementById("symCount").innerText =
+          result.symbols?.length || 0;
+        document.getElementById("resultCount").innerText =
+          result.result?.length || 0;
         const errLen = result.errors.length;
-        document.getElementById('errCount').innerText = errLen;
-        if (result.success) statusMsg.innerHTML = '✅ compiled successfully';
-        else statusMsg.innerHTML = `⚠️ ${errLen} error(s)`;
+        document.getElementById("errCount").innerText = errLen;
+        if (result.success) statusMsg.innerHTML = "compiled successfully";
+        else statusMsg.innerHTML = `${errLen} error(s)`;
         // auto switch to errors if any
-        if (errLen > 0) switchTab('errors');
+        if (errLen > 0) switchTab("errors");
       }
 
       function switchTab(tabId) {
-        const panels = ['tokens','ast','symbols','result','errors'];
-        panels.forEach(id => {
+        const panels = ["tokens", "ast", "symbols", "result", "errors"];
+        panels.forEach((id) => {
           const el = document.getElementById(`panel-${id}`);
-          if(el) el.style.display = 'none';
+          if (el) el.style.display = "none";
         });
-        document.getElementById(`panel-${tabId}`).style.display = 'block';
-        document.querySelectorAll('.tab-item').forEach(t => t.classList.remove('active'));
-        document.querySelector(`[data-tab="${tabId}"]`).classList.add('active');
+        document.getElementById(`panel-${tabId}`).style.display = "block";
+        document
+          .querySelectorAll(".tab-item")
+          .forEach((t) => t.classList.remove("active"));
+        document.querySelector(`[data-tab="${tabId}"]`).classList.add("active");
       }
-      document.querySelectorAll('.tab-item').forEach(btn => {
-        btn.addEventListener('click', () => switchTab(btn.dataset.tab));
+      document.querySelectorAll(".tab-item").forEach((btn) => {
+        btn.addEventListener("click", () => switchTab(btn.dataset.tab));
       });
-      runBtn.addEventListener('click', compile);
-      clearBtn.addEventListener('click', () => { editor.value = ''; updateLineNumbers(); updateCursor(); statusMsg.innerHTML = '● ready'; });
-      sampleSelect.addEventListener('change', (e) => {
+      runBtn.addEventListener("click", compile);
+      clearBtn.addEventListener("click", () => {
+        editor.value = "";
+        updateLineNumbers();
+        updateCursor();
+        statusMsg.innerHTML = "● ready";
+      });
+      sampleSelect.addEventListener("change", (e) => {
         const val = e.target.value;
-        if(val && samplePrograms[val]) editor.value = samplePrograms[val];
-        updateLineNumbers(); updateCursor(); statusMsg.innerHTML = '📂 sample loaded';
-        e.target.value = '';
+        if (val && samplePrograms[val]) editor.value = samplePrograms[val];
+        updateLineNumbers();
+        updateCursor();
+        statusMsg.innerHTML = "sample loaded";
+        e.target.value = "";
       });
       // Theme handling: toggle and persist
       function applyTheme(theme) {
-        if (theme === 'dark') document.documentElement.setAttribute('data-theme', 'dark');
-        else document.documentElement.removeAttribute('data-theme');
-        if (themeToggle) themeToggle.innerText = theme === 'dark' ? '☀️' : '🌙';
+        if (theme === "dark")
+          document.documentElement.setAttribute("data-theme", "dark");
+        else document.documentElement.removeAttribute("data-theme");
+        if (themeToggle)
+          themeToggle.innerText = theme === "dark" ? "Light" : "Dark";
       }
-      if (themeToggle) themeToggle.addEventListener('click', () => {
-        const cur = document.documentElement.getAttribute('data-theme') === 'dark' ? 'dark' : 'light';
-        const next = cur === 'dark' ? 'light' : 'dark';
-        applyTheme(next);
-        try { localStorage.setItem('theme', next); } catch(e) {}
-      });
-      (function initTheme(){
+      if (themeToggle)
+        themeToggle.addEventListener("click", () => {
+          const cur =
+            document.documentElement.getAttribute("data-theme") === "dark"
+              ? "dark"
+              : "light";
+          const next = cur === "dark" ? "light" : "dark";
+          applyTheme(next);
+          try {
+            localStorage.setItem("theme", next);
+          } catch (e) {}
+        });
+      (function initTheme() {
         try {
-          const saved = localStorage.getItem('theme');
-          if (saved) { applyTheme(saved); return; }
-        } catch(e) {}
-        const prefersDark = window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches;
-        applyTheme(prefersDark ? 'dark' : 'light');
+          const saved = localStorage.getItem("theme");
+          if (saved) {
+            applyTheme(saved);
+            return;
+          }
+        } catch (e) {}
+        const prefersDark =
+          window.matchMedia &&
+          window.matchMedia("(prefers-color-scheme: dark)").matches;
+        applyTheme(prefersDark ? "dark" : "light");
       })();
       // initial default demo
-      editor.value = 'int counter;\nstring msg;\ncounter = 10;\nmsg = "mini lang";\nwhile counter > 0 do {\n  counter = counter - 1;\n}';
-      updateLineNumbers(); updateCursor(); compile();
+      editor.value =
+        'int counter;\nstring msg;\ncounter = 10;\nmsg = "mini lang";\nwhile counter > 0 do {\n  counter = counter - 1;\n}';
+      updateLineNumbers();
+      updateCursor();
+      compile();
     </script>
   </body>
 </html>
