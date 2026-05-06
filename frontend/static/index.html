@@ -1018,10 +1018,46 @@
       });
       updateLineNumbers();
 
-      function compile() {
+      async function compile() {
         const source = editor.value;
-        const compiler = new MiniLangCompiler(source);
-        const result = compiler.fullCompile();
+        let result = null;
+        try {
+          const res = await fetch("/compile", {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify({ source }),
+          });
+          if (res.headers.get("content-type")?.includes("application/json")) {
+            result = await res.json();
+          }
+          if (!res.ok || !result) {
+            const msg = result?.errors?.[0]?.message || "Backend error";
+            result = {
+              success: false,
+              tokens: [],
+              ast: null,
+              symbols: [],
+              result: [],
+              errors: [{ phase: "Network", line: null, message: msg }],
+            };
+          }
+        } catch (err) {
+          result = {
+            success: false,
+            tokens: [],
+            ast: null,
+            symbols: [],
+            result: [],
+            errors: [
+              {
+                phase: "Network",
+                line: null,
+                message: "Failed to reach backend /compile",
+              },
+            ],
+          };
+        }
+
         document.getElementById("panel-tokens").innerHTML = renderTokens(
           result.tokens,
         );
