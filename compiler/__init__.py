@@ -5,7 +5,7 @@ and returns a structured result dict (consumed by the Flask API).
 """
 
 from .lexer    import tokenize
-from .parser   import parse
+from .parser   import Parser
 from .semantic import SemanticAnalyzer
 from .interpreter import execute
 from .errors   import LexerError, ParseError, ExecutionError
@@ -45,17 +45,21 @@ def compile_source(source: str) -> dict:
 
     # ── Phase 2: Parsing ───────────────────────────────────────────────────────
     try:
-        tree = parse(tokens)
+        parser = Parser(tokens)
+        tree = parser.parse()
         result["ast"] = repr(tree)
     except ParseError as e:
         result["errors"].append(e.to_dict())
         return result   # cannot continue without an AST
 
+    result["symbols"] = parser.symbol_table.to_list()
+    if parser.semantic_errors:
+        result["errors"] = [e.to_dict() for e in parser.semantic_errors]
+        return result
+
     # ── Phase 3: Semantic analysis ─────────────────────────────────────────────
     analyzer = SemanticAnalyzer()
     sem_errors = analyzer.analyze(tree)
-    result["symbols"] = analyzer.symbol_table.to_list()
-
     if sem_errors:
         result["errors"] = [e.to_dict() for e in sem_errors]
         return result

@@ -7,6 +7,23 @@ MiniLang is a small educational compiler project with:
 - Runtime execution (final variable values)
 - Web frontend to visualize tokens, AST, symbols, result, and errors
 
+## Syntax-Directed Checks (SDT/SDD Lite)
+
+This project uses a lightweight syntax-directed approach in the parser while
+still building an AST:
+
+- The parser maintains a symbol table and records semantic errors as it parses.
+- Expression parsing returns both the AST node and its inferred type.
+- Type rules are applied at the point where grammar productions are recognized
+  (e.g., when building binary operator nodes).
+- Declarations and assignments perform semantic checks immediately during
+  parsing (re-declaration, use-before-declare, type mismatch).
+
+In other words, semantic actions are executed during parsing (SDT-style) rather
+than only in a separate, later AST walk. The AST is still built for later
+phases and debugging, but type checking and symbol table updates are performed
+as part of the parsing process.
+
 ## Project Structure
 
 - backend: Flask API
